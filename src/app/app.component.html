@@ -1,0 +1,23 @@
+
+<div class="container color-dark">
+  <div class="col">
+    <p>Add an Item to wish list</p>
+  </div>
+  <div class="col">
+    <p>Your wish list({{count}})</p>
+  </div>
+</div>
+<div class="container color-light">
+  <div class="col">
+    <p>Use this form bellow to add new wish list. what do you want to do with your life?</p>
+    <form>
+      <input type="text" class="txt" name="item" placeholder="add a wish..." [(ngModel)]="wishText" >
+      <input type="submit" class="btn" value="Add Item" (click)="addItemToWishList()" >
+    </form>
+  </div>
+  <div class="col" *ngIf="wishList.length">
+    <p class="life-container" *ngFor="let wish of wishList; let i = index;" (click)="removeWishItem(i)" >
+      {{ wish }}
+    </p>
+  </div>
+</div>
