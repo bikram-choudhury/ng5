@@ -2,7 +2,14 @@
 .container {
     display: grid;
     grid-template-columns: 50% auto;
-    
+
+    .logout{
+        cursor: pointer;
+        color: #afeeee;
+        &:hover{
+            font-weight: bold;
+        }
+    }
     &.color-dark {
         background: #2885c4;
     }
@@ -18,15 +25,20 @@
             width: 80%;
             margin-bottom: 2em;
         }
-        input.btn {
+        .btn-holder,.content-holder{
+            display: flex;
+        }
+        .btn {
             border: 0;
             display: block;
             padding: 1em 3em;
             background: #a5f883;
             color: #003a61;
             margin-bottom: 1em;
+            margin-right: 10px;
             cursor: pointer;
         }
+        
         .life-container {
             background: #3fa0e1;
             padding: 0.5em;

@@ -1,23 +1,48 @@
 
-<div class="container color-dark">
+<div class="container color-dark" *ngIf="!loggedInUser">
+  <div class="col">
+    <p>Type your name to get your wish list</p>
+  </div>
+  <div class="col">
+    <form>
+      <input type="text" class="txt" name="item" placeholder="user name..." [(ngModel)]="login.username">
+      <input type="password" class="txt" name="item" placeholder="user password..." [(ngModel)]="login.password">
+      <input type="submit" class="btn" value="Submit" (click)="getUserWishes()" >
+    </form>
+  </div>
+</div>
+<div class="container color-dark" *ngIf="loggedInUser">
   <div class="col">
     <p>Add an Item to wish list</p>
   </div>
   <div class="col">
-    <p>Your wish list({{count}})</p>
+    <p [hidden]="loader">
+      Your wish list({{count}})
+      <span class="logout pull-right" (click)="logoutUser()">Logout</span>
+    </p>
+    <p [hidden]="!loader">
+      Loading . . .
+      <span class="logout pull-right" (click)="logoutUser()">Logout</span>
+    </p>
   </div>
 </div>
-<div class="container color-light">
+<div class="container color-light" *ngIf="loggedInUser">
   <div class="col">
     <p>Use this form bellow to add new wish list. what do you want to do with your life?</p>
     <form>
       <input type="text" class="txt" name="item" placeholder="add a wish..." [(ngModel)]="wishText" >
-      <input type="submit" class="btn" value="Add Item" (click)="addItemToWishList()" >
+      <div class="btn-holder">
+        <input type="submit" class="btn" value="{{submitBtnText}}" (click)="addOrUpdateItemToWishList()" >
+        <input type="button" class="btn" value="Reset" (click)="reset()" >
+      </div>
+      
     </form>
   </div>
   <div class="col" *ngIf="wishList.length">
-    <p class="life-container" *ngFor="let wish of wishList; let i = index;" (click)="removeWishItem(i)" >
-      {{ wish }}
+    <p class="life-container" *ngFor="let item of wishList; let i = index;">
+      <span class="edit-wish" (click)="editWishItem(item.$key)">{{ item.wish }}</span>
+      <span class="complete-wish pull-right" (click)="removeWishItem(item.$key)">&#10008;</span>
+      <span class="edit-wish pull-right m-r-10" (click)="editWishItem(item.$key)">&#x270E;</span>
     </p>
   </div>
 </div>

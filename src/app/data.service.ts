@@ -1,13 +1,26 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class DataService {
 
-  private wishList = new BehaviorSubject<any>([]);
-  wish = this.wishList.asObservable();
-  constructor() { }
-  changeWishList(wish){
-    this.wishList.next(wish);
+  wishList: AngularFireList<any>;
+  selectedWish:any;
+  constructor(private firebase: AngularFireDatabase) { }
+  getWishList(){
+    this.wishList = this.firebase.list('wish');
+    return this.wishList;
   }
+  insertWishToList(wish:any){
+    this.wishList.push(wish);
+  }
+  updateWish(wishId:string,wish:any){
+    this.wishList.update(wishId,wish);
+  }
+  removeWish(wishId:string){
+    this.wishList.remove(wishId);
+  }
+
 }
