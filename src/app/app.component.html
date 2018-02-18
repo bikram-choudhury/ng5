@@ -31,6 +31,7 @@
     <p>Use this form bellow to add new wish list. what do you want to do with your life?</p>
     <form>
       <input type="text" class="txt" name="item" placeholder="add a wish..." [(ngModel)]="wishText" >
+      <input type="text" class="txt" name="itemType" placeholder="add wish type..." [(ngModel)]="wishType" >
       <div class="btn-holder">
         <input type="submit" class="btn" value="{{submitBtnText}}" (click)="addOrUpdateItemToWishList()" >
         <input type="button" class="btn" value="Reset" (click)="reset()" >
@@ -39,10 +40,20 @@
     </form>
   </div>
   <div class="col" *ngIf="wishList.length">
-    <p class="life-container" *ngFor="let item of wishList; let i = index;">
-      <span class="edit-wish" (click)="editWishItem(item.$key)">{{ item.wish }}</span>
-      <span class="complete-wish pull-right" (click)="removeWishItem(item.$key)">&#10008;</span>
-      <span class="edit-wish pull-right m-r-10" (click)="editWishItem(item.$key)">&#x270E;</span>
+    <p class="header-container col-12">
+      <span class="col-6">Wish</span>
+      <span class="col-4">Type</span>
+      <span class="col-2 right-text">Action</span>
+    </p>
+    <p class="life-container col-12" *ngFor="let item of wishList; let i = index;">
+      <label class="col-6" (click)="editWishItem(item.$key)">
+        <span class="wish-text ellipsis" title="{{ item.wish }}" >{{ item.wish }}</span>
+      </label>
+      <label class="col-4" (click)="editWishItem(item.$key)">
+        {{ item.type }}
+      </label>
+      <label class="complete-wish pull-right" (click)="removeWishItem(item.$key)">&#10008;</label>
+      <label class="pull-right m-r-10" (click)="editWishItem(item.$key)">&#x270E;</label>
     </p>
   </div>
 </div>

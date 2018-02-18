@@ -9,8 +9,13 @@ export class DataService {
   wishList: AngularFireList<any>;
   selectedWish:any;
   constructor(private firebase: AngularFireDatabase) { }
-  getWishList(){
-    this.wishList = this.firebase.list('wish');
+  getWishList(userKey?:string){
+    let queryObj = {};
+    if(userKey){
+      this.wishList = this.firebase.list('wish', ref=>ref.orderByChild('user').equalTo(userKey));
+    } else {
+      this.wishList = this.firebase.list('wish');
+    }
     return this.wishList;
   }
   insertWishToList(wish:any){

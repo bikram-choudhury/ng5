@@ -38,12 +38,22 @@
             margin-right: 10px;
             cursor: pointer;
         }
-        
+        .header-container {
+            background: #87cefa;
+            padding: 0.5em;
+            font-weight: bold;
+        }
         .life-container {
             background: #3fa0e1;
             padding: 0.5em;
             font-weight: bold;
-            cursor: pointer;
+            .wish-text {
+                max-width: 200px;
+                float: left;
+            }
+            label {
+                cursor: pointer;
+            }
         }
     }
 }

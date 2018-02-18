@@ -26,10 +26,38 @@ body {
        color: #ffffff;
        text-decoration: none; 
     }
+    .ellipsis {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;        
+    }
     .m-r-10 {
         margin-right: 10px;
     }
     .pull-right {
         float: right;
+    }
+    .right-text {
+        text-align: right;
+    }
+    .col-12 {
+        width: 100%;
+        display: block;
+    }
+    .col-6 {
+        width: 50%;
+        display: inline-block;
+    }
+    .col-4 {
+        width: 30%;
+        display: inline-block;
+    }
+    .col-3 {
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-2 {
+        width: 16.666%;
+        display: inline-block;
     }
 }

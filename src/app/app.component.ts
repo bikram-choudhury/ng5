@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AppComponent implements OnInit {
   title = 'wishList';
   wishText:string;
+  wishType:string;
   wishId:string;
   count:number = 0;
   wishList:any = [];
@@ -35,8 +36,9 @@ export class AppComponent implements OnInit {
   }
   reset(){
     this.wishText = ""
+    this.wishType = ""
     this.wishId = ""
-    this.submitBtnText= "Add wish";
+    this.submitBtnText= "Add wish"
   }
   addOrUpdateItemToWishList() {
     if(this.wishText){
@@ -44,7 +46,8 @@ export class AppComponent implements OnInit {
           userKey = sessionStorage.getItem('loginuserKey'),
           wishObj = {
             user: userKey,
-            wish: this.wishText
+            wish: this.wishText,
+            type: this.wishType
           };
       if(this.wishId){
         wishObj['updatedDate'] = formatDate;
@@ -79,6 +82,7 @@ export class AppComponent implements OnInit {
     if(key){
       let result = this.wishList.find(item=>item.$key===key)
       this.wishText = result.wish
+      this.wishType = result.type
       this.wishId = key
       this.submitBtnText = "Update wish"
     }
@@ -94,9 +98,15 @@ export class AppComponent implements OnInit {
   logoutUser(){
     sessionStorage.removeItem('loginuserKey');
     this.loggedInUser = "";
+    this.wishList = [];
+    this.count = 0;
   }
   runWishManagementProcess(){
-    let wishList = this._data.getWishList();
+    let userKey = "";
+    if(sessionStorage){
+      userKey = sessionStorage.getItem('loginuserKey')      
+    }
+    let wishList = this._data.getWishList(userKey);
     wishList.snapshotChanges().subscribe(item=>{
       this.wishList = [];
       item.forEach(element =>{
