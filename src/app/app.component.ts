@@ -100,6 +100,10 @@ export class AppComponent implements OnInit {
     this.loggedInUser = "";
     this.wishList = [];
     this.count = 0;
+    this.login = {
+      username: '',
+      password: ''
+    };
   }
   runWishManagementProcess(){
     let userKey = "";
@@ -108,14 +112,20 @@ export class AppComponent implements OnInit {
     }
     let wishList = this._data.getWishList(userKey);
     wishList.snapshotChanges().subscribe(item=>{
-      this.wishList = [];
-      item.forEach(element =>{
-        let adhoc = element.payload.toJSON()
-        adhoc['$key'] = element.key
-        this.wishList.push(adhoc)
+      if(item.length > 0){
+        this.wishList = [];
+        item.forEach(element =>{
+          let adhoc = element.payload.toJSON()
+          adhoc['$key'] = element.key
+          this.wishList.push(adhoc)
+          this.count = this.wishList.length
+          this.loader = false
+        })
+      } else {
+        this.wishList = [];
         this.count = this.wishList.length
         this.loader = false
-      })
+      }
     })
     this.reset()
   }
