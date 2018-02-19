@@ -52,11 +52,15 @@ export class AppComponent implements OnInit {
       if(this.wishId){
         wishObj['updatedDate'] = formatDate;
         this._data.updateWish(this.wishId,wishObj)
-        this.toaster.success('Submitted Successfully','Wish Updated');
+        this.toaster.success('Submitted Successfully','Wish Updated',{
+          closeButton:true
+        });
       } else {
         wishObj['createdDate'] = formatDate;
         this._data.insertWishToList(wishObj)
-        this.toaster.success('Submitted Successfully','Wish Created');
+        this.toaster.success('Submitted Successfully','Wish Created',{
+          closeButton:true
+        });
       }
       this.reset()
     }
@@ -64,7 +68,9 @@ export class AppComponent implements OnInit {
   removeWishItem(key:string){
     if(key){
       this._data.removeWish(key)
-      this.toaster.warning('Submitted Successfully','Wish Deleted');
+      this.toaster.warning('Submitted Successfully','Wish Deleted',{
+        closeButton:true
+      });
       this.count = this.wishList.length
     }
   }
